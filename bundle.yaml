@@ -1,0 +1,41 @@
+﻿series: xenial
+applications:
+  apache-drill:
+    charm: 'cs:~spiculecharms/apache-drill-24'
+    num_units: 1
+    annotations:
+      gui-x: '758'
+      gui-y: '656.7050807568877'
+    to:
+      - '1'
+  saikuanalytics-enterprise:
+    charm: 'cs:~spiculecharms/saiku-enterprise-21'
+    num_units: 1
+    annotations:
+      gui-x: '1158'
+      gui-y: '656.7050807568877'
+    to:
+      - '2'
+  zookeeper:
+    charm: 'cs:zookeeper-37'
+    num_units: 1
+    annotations:
+      gui-x: '958'
+      gui-y: '310.29491924311225'
+    to:
+      - '0'
+relations:
+  - - 'zookeeper:zookeeper'
+    - 'apache-drill:zookeeper'
+  - - 'saikuanalytics-enterprise:jdbc'
+    - 'apache-drill:jdbc'
+machines:
+  '0':
+    series: xenial
+    constraints: arch=amd64 cpu-cores=1 cpu-power=350 mem=3840 root-disk=8192
+  '1':
+    series: xenial
+    constraints: arch=amd64 cpu-cores=1 cpu-power=350 mem=3840 root-disk=8192
+  '2':
+    series: xenial
+    constraints: arch=amd64 cpu-cores=1 cpu-power=350 mem=3840 root-disk=8192
